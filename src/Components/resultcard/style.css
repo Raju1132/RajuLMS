@@ -1,0 +1,42 @@
+.result_card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: #bbbbbb 1px solid;
+  border-radius: 10px;
+  min-width: 300px;
+  min-height: 150px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: all 0.2s linear;
+  padding: 20px;
+}
+.result_card:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 10px;
+}
+.subcard{
+    width: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    border-left: 2px solid #999;
+    margin-block: 20px;
+}
+.subcard:nth-child(1){
+    border-left: none;
+}
+.subcard span{
+    font-weight: 500;
+    font-size: 24px;
+}
+@media screen and (max-width: 768px) {
+    .result_card{
+        padding: 10px;
+    }
+    .subcard{
+        gap:10px;
+    }
+}

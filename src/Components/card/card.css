@@ -1,0 +1,108 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border: #bbbbbb 1px solid;
+  border-radius: 10px;
+  min-width: 300px;
+  min-height: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: all 0.2s linear;
+}
+.card:hover {
+  scale: 1.01;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 10px;
+}
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+}
+.title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.description {
+  color: #777;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+img {
+  aspect-ratio: 16/9;
+  width: 100%;
+  background: center;
+  border-radius: 7px 7px 0 0;
+}
+.padding {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+}
+.button {
+  background: #ff4500;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transition: 0.1s all linear;
+}
+.button:hover {
+  scale: 1.01;
+  opacity: 0.8;
+}
+.color {
+  color: #ff4500;
+}
+.icons_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.icon:hover {
+  background: #eee;
+}
+.flex_between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.date {
+  font-size: 12px;
+}
+.Status {
+  padding: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background: #eee;
+}
+.Status[value="Rejected"] {
+  background: red;
+  color: white;
+}
+.Status[value="Approved"] {
+  background: #35ff53;
+  color: black;
+}
+.Status[value="In Process"] {
+  background: rgb(255, 252, 93);
+  color: black;
+}

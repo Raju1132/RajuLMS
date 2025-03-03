@@ -1,0 +1,212 @@
+/* .LoginContain{
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+.LoginContain::before{
+    content: '';
+    position: fixed;
+    bottom: -70px;
+    left: -70px;
+    width: 135px;
+    height: 135px;
+    border-radius: 50pc;
+    background-color: orangered;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 1;
+}
+.LoginContain::after{
+    content: '';
+    position: fixed;
+    top: -70px;
+    right: -70px;
+    width: 135px;
+    height: 135px;
+    border-radius: 50pc;
+    background-color: orangered;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 1;
+} */
+/* .LoginLogo{
+    max-width: 500px;
+    width: 100%;
+    padding-left: 2px;
+    margin: auto;
+}
+.LoginLogo img{
+    width: 60px;
+} */
+/* .LoginCard{
+    max-width: 500px;
+    width: 100%;
+    margin-top: 40px;
+    padding: 40px;
+    padding-bottom: 55px;
+    position: relative;
+    margin: auto;
+}
+.LoginTitle{
+    margin-bottom: 50px;
+}
+.LoginTitle h4{
+    font-size: 33px;
+    color: orangered;
+    text-align: center;
+}
+.LoginTitle p{
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: gray;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+} */
+/* .LoginGroup{
+    margin-bottom: 15px;
+}
+
+.LoginGroup label,.LoginGroup.CheckBox a{
+    color: orangered;
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+}
+.LoginGroup label{
+    position: relative;
+    display: inline-block;
+}    */
+/* .LoginGroup input{
+    width: 100%;
+    font-size: 13px;
+    outline: none;
+    border: none;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+.LoginGroup input::placeholder{
+    color: rgb(143, 142, 142);
+} */
+
+
+/* .LoginGroup button{
+    border: none;
+    background-color: orangered;
+    color: #fff;
+    padding: 12px 30px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    text-transform: uppercase;
+} */
+/* .LoginBtn{
+    position: absolute;
+    right: 0;
+}
+.LoginFooter{
+    background-color: #f5f5f5;
+    color: #000;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+}
+.LoginFooter p{
+    margin: 0;
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+}
+.LoginFooter p span{
+    color: orangered;
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.LoginGroup .PasswrdInpt{
+    position: relative;
+}
+.LoginGroup .PasswrdInpt button{
+    border: none;
+    background: transparent;
+    position: absolute;
+    padding: 0;
+    top: 10px;
+    right: 10px;
+}
+.LoginGroup .PasswrdInpt button img{
+    width: 18px;
+}
+.LoginGroup.CheckBox {
+    margin-bottom: 0;
+} */
+.LoginDivider{
+    width: 100%;
+    font-size: 13px;
+    font-weight: 500;
+    position: relative;
+    margin-top: 55px;
+    text-align: center;
+}
+.LoginDivider::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(201, 201, 201);
+}
+.LoginDivider span{
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
+    padding: 0 10px;
+}
+.LoginGroup.signUp{
+    text-align: center;
+}
+.LoginGroup.signUp p{
+    font-size: 13px;
+}
+.LoginGroup.signUp a{
+    color: orangered;
+    font-size: 14px;
+    font-weight: 500;
+}
+/* @media(min-width:500px){
+    .LoginGroup button{
+        border-radius: 10px;
+    }
+    .LoginBtn{
+        position: static;
+        text-align: center;
+    }
+}
+
+@media(max-width:300px){
+    .LoginCard{
+        padding: 20px;
+    }
+} */
+
+
+.error {
+    color: red; /* Or any other style you'd like */
+    font-size: 14px;
+  }
+  .RequieredStar{
+    color: #0d6efd;
+    position: absolute;
+    top: -4px;
+    right: -8px;
+  }
