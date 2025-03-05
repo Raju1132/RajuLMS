@@ -11,8 +11,7 @@ exports.MVRCheckListMenu = [
 
 exports.Roles = {
   'Admin': 'Admin',
-  'Tutor':"Tutor",
-  "learner":"learner"
+  'User':"User",
 }
 
 exports.NotAvailable = 'N/A'

@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
+const roles = {
+  ADMIN: 'Admin',
+  USER: 'User',
+};
+
 const roleSlice = createSlice({
   name: 'Role', 
-  initialState: 'HO', 
+  initialState: roles.ADMIN, 
   reducers: {
     setRole: (state, action) => action.payload,
   },

@@ -1,72 +1,55 @@
-import "./style.css";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TablePagination,
+import React, { useState, useMemo } from "react";
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableRow, 
+  TablePagination, 
+  TextField, 
+  Box, 
+  Typography,
+  Button,
+  TableContainer,
+  Paper
 } from "@mui/material";
-import {
-  CommanTableContain,
-  PaginationContain,
-  CommanTableContainMain,
-} from "../../style/table";
+import SearchIcon from '@mui/icons-material/Search';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { styled } from "@mui/material/styles";
+import './style.css'
+
+// Styled Components
+const AnalyticsContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(2),
+  backgroundColor: theme.palette.background.default
+}));
+
+const StatsContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginBottom: theme.spacing(2),
+  gap: theme.spacing(2)
+}));
+
+const StatCard = styled(Paper)(({ theme }) => ({
+  flex: 1,
+  padding: theme.spacing(2),
+  textAlign: 'center',
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[2],
+  borderRadius: theme.spacing(1)
+}));
+
 function Analytics() {
-  const tableData = [
-    {
-      dealerCode: "D001",
-      dealerName: "Dealer One",
-      city: "City One",
-      totalMom: 100,
-      openMom: 50,
-      reopenedMom: 10,
-      completedMom: 30,
-      closedMom: 20,
-      amEsc: 5,
-      zmEsc: 3,
-      rmEsc: 2,
-    },
-    {
-      dealerCode: "D002",
-      dealerName: "Dealer Two",
-      city: "City Two",
-      totalMom: 150,
-      openMom: 60,
-      reopenedMom: 20,
-      completedMom: 50,
-      closedMom: 40,
-      amEsc: 6,
-      zmEsc: 2,
-      rmEsc: 1,
-    },
-    {
-      dealerCode: "D003",
-      dealerName: "Dealer Three",
-      city: "City Three",
-      totalMom: 200,
-      openMom: 80,
-      reopenedMom: 30,
-      completedMom: 70,
-      closedMom: 60,
-      amEsc: 7,
-      zmEsc: 4,
-      rmEsc: 3,
-    },
-    // Add more static data as needed
-  ];
-
-  const totalCount = tableData.length; // Number of rows
-  const page = 0; // Page number
-  const rowsPerPage = 5; // Number of rows per page
-
-  const handlePageChange = (event, newPage) => {
-    // Handle page change here
-  };
-
-  const handleRowsPerPageChange = (event) => {
-    // Handle rows per page change here
-  };
+  // State Management
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortConfig, setSortConfig] = useState({ 
+    key: null, 
+    direction: 'ascending' 
+  });
+      
   const data = [
     {
       title: "Introduction to Programming",
@@ -78,7 +61,8 @@ function Analytics() {
       courseComplete: "45%",
       numberOfStudent: "246",
       revenue: "985299",
-      raiting: "4.3",
+      rating: "4.3",
+      status: "In Process",  
     },
     {
       title: "Advanced Web Development",
@@ -90,7 +74,8 @@ function Analytics() {
       courseComplete: "60%",
       numberOfStudent: "320",
       revenue: "1280450",
-      raiting: "4.7",
+      rating: "4.7",
+      status: "Approved",  
     },
     {
       title: "Data Science and Machine Learning",
@@ -102,7 +87,8 @@ function Analytics() {
       courseComplete: "30%",
       numberOfStudent: "185",
       revenue: "752800",
-      raiting: "4.5",
+      rating: "4.5",
+      status: "In Process",  
     },
     {
       title: "Project Management Essentials",
@@ -114,7 +100,8 @@ function Analytics() {
       courseComplete: "20%",
       numberOfStudent: "150",
       revenue: "640000",
-      raiting: "4.0",
+      rating: "4.0",
+      status: "Rejected",  
     },
     {
       title: "Digital Marketing Strategy",
@@ -126,7 +113,8 @@ function Analytics() {
       courseComplete: "70%",
       numberOfStudent: "512",
       revenue: "2500000",
-      raiting: "4.8",
+      rating: "4.8",
+      status: "Approved",  
     },
     {
       title: "Full Stack Web Development",
@@ -138,7 +126,8 @@ function Analytics() {
       courseComplete: "50%",
       numberOfStudent: "400",
       revenue: "1800000",
-      raiting: "4.6",
+      rating: "4.6",
+      status: "In Process",  
     },
     {
       title: "Introduction to Artificial Intelligence",
@@ -150,7 +139,8 @@ function Analytics() {
       courseComplete: "35%",
       numberOfStudent: "290",
       revenue: "1150000",
-      raiting: "4.4",
+      rating: "4.4",
+      status: "In Process",  
     },
     {
       title: "UX/UI Design Fundamentals",
@@ -162,7 +152,8 @@ function Analytics() {
       courseComplete: "50%",
       numberOfStudent: "205",
       revenue: "820000",
-      raiting: "4.2",
+      rating: "4.2",
+      status: "Approved",  
     },
     {
       title: "Cybersecurity Basics",
@@ -174,7 +165,8 @@ function Analytics() {
       courseComplete: "10%",
       numberOfStudent: "132",
       revenue: "400000",
-      raiting: "3.9",
+      rating: "3.9",
+      status: "Rejected",  
     },
     {
       title: "Introduction to Cloud Computing",
@@ -186,83 +178,179 @@ function Analytics() {
       courseComplete: "65%",
       numberOfStudent: "478",
       revenue: "1900000",
-      raiting: "4.5",
+      rating: "4.5",
+      status: "In Process",  
     },
   ];
 
+  
+  const filteredAndSortedData = useMemo(() => {
+    let result = data.filter(course => 
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Sorting Logic
+    if (sortConfig.key) {
+      result.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+
+    return result;
+  }, [searchTerm, sortConfig]);
+
+  // Pagination Logic
+  const paginatedData = useMemo(() => {
+    const startIndex = page * rowsPerPage;
+    return filteredAndSortedData.slice(startIndex, startIndex + rowsPerPage);
+  }, [filteredAndSortedData, page, rowsPerPage]);
+
+  // Event Handlers
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleSort = (key) => {
+    setSortConfig(prevConfig => ({
+      key,
+      direction: prevConfig.key === key && prevConfig.direction === 'ascending' 
+        ? 'descending' 
+        : 'ascending'
+    }));
+  };
+
+  // Calculate Statistics
+  const statistics = {
+    total: data.length,
+    rejected: data.filter(course => parseInt(course.courseComplete) < 20).length,
+    inProcess: data.filter(course => 
+      parseInt(course.courseComplete) >= 20 && 
+      parseInt(course.courseComplete) < 80
+    ).length,
+    approved: data.filter(course => parseInt(course.courseComplete) >= 80).length
+  };
+
   return (
-    <>
+    <AnalyticsContainer>
+      {/* Statistics Cards */}
+
       <div className="analytics_container">
         <div className="small_card">
-          <span>10</span>
+          <span>{statistics.total}</span>
           <p>Total</p>
         </div>
         <div className="small_card">
-          <span>0</span>
-          <p>Pending</p>
+          <span>{statistics.rejected}</span>
+          <p>Rejected</p>
         </div>
         <div className="small_card">
-          <span>43</span>
+          <span>{statistics.inProcess}</span>
           <p>In Process</p>
         </div>
         <div className="small_card">
-          <span>138</span>
-          <p>Resolve</p>
+          <span>{statistics.approved}</span>
+          <p>Approved</p>
         </div>
       </div>
-      <CommanTableContainMain>
-        <CommanTableContain>
-          <Table stickyHeader>
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  sx={{ position: "sticky", left: 0, top: 0, zIndex: 9 }}
-                >
-                  Course Title
-                </TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Start Date</TableCell>
-                <TableCell>End Date</TableCell>
-                <TableCell>Days Left</TableCell>
-                <TableCell>Completion</TableCell>
-                <TableCell>Number of Students</TableCell>
-                <TableCell>Revenue</TableCell>
-                <TableCell>Rating</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell sx={{ position: "sticky", left: 0, zIndex: 8 }}>
-                    {row.title}
-                  </TableCell>
-                  <TableCell>{row.description}</TableCell>
-                  <TableCell>{row.fromDate}</TableCell>
-                  <TableCell>{row.afterDate}</TableCell>
-                  <TableCell>{row.dayLeft}</TableCell>
-                  <TableCell>{row.courseComplete}</TableCell>
-                  <TableCell>{row.numberOfStudent}</TableCell>
-                  <TableCell>{row.revenue}</TableCell>
-                  <TableCell>{row.raiting}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CommanTableContain>
 
-        {/* Pagination */}
-        <PaginationContain>
-          <TablePagination
-            component="div"
-            count={totalCount} // Total number of items from API
-            page={page}
-            rowsPerPage={rowsPerPage}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleRowsPerPageChange} // Option to handle rows per page change
-          />
-        </PaginationContain>
-      </CommanTableContainMain>
-    </>
+      {/* Search and Filter */}
+      <Box 
+        display="flex" 
+        justifyContent="space-between" 
+        alignItems="center" 
+        mb={2}
+      >
+        <TextField
+          variant="outlined"
+          placeholder="Search courses"
+          fullWidth
+          size="small"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ maxWidth: 400, mr: 2 }}
+          InputProps={{
+            startAdornment: <SearchIcon />
+          }}
+        />
+        <Button 
+          variant="outlined" 
+          startIcon={<FilterListIcon />}
+        >
+          Filter
+        </Button>
+      </Box>
+
+      {/* Data Table */}
+      <TableContainer component={Paper}>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              {[
+                { key: 'title', label: 'Course Title' },
+                { key: 'description', label: 'Description' },
+                { key: 'fromDate', label: 'Start Date' },
+                { key: 'afterDate', label: 'End Date' },
+                { key: 'dayLeft', label: 'Days Left' },
+                { key: 'courseComplete', label: 'Completion' },
+                { key: 'numberOfStudent', label: 'Students' },
+                { key: 'revenue', label: 'Revenue' },
+                { key: 'rating', label: 'Rating' }
+              ].map((column) => (
+                <TableCell 
+                  key={column.key}
+                  onClick={() => handleSort(column.key)}
+                  sx={{ cursor: 'pointer' }}
+                >
+                  {column.label}
+                  {sortConfig.key === column.key && (
+                    <span>
+                      {sortConfig.direction === 'ascending' ? ' ▲' : ' ▼'}
+                    </span>
+                  )}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginatedData.map((row, index) => (
+              <TableRow key={index} hover>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.description}</TableCell>
+                <TableCell>{row.fromDate}</TableCell>
+                <TableCell>{row.afterDate}</TableCell>
+                <TableCell>{row.dayLeft}</TableCell>
+                <TableCell>{row.courseComplete}</TableCell>
+                <TableCell>{row.numberOfStudent}</TableCell>
+                <TableCell>${row.revenue.toLocaleString()}</TableCell>
+                <TableCell>{row.rating}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {/* Pagination */}
+      <TablePagination
+        component="div"
+        count={filteredAndSortedData.length}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
+    </AnalyticsContainer>
   );
 }
 

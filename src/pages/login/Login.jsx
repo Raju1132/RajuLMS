@@ -60,15 +60,15 @@ const Login = () => {
     try {
       // console.log(credentials)
       // const response = await LoginUser({ payload: credentials });
-      localStorage.setItem('user_cred', JSON.stringify(response))
-      setRole(response.roleType);
+      // localStorage.setItem('user_cred', JSON.stringify(response))
+      // setRole(response.roleType);
       navigate('/home');
       // if(response.roleType === "dealer"){
       //   navigate('/home');
       // }
     } catch (error) {
-      localStorage.clear()
-      toast.error(error?.response?.data?.error ?? "Something went wrong");
+      // localStorage.clear()
+      // toast.error(error?.response?.data?.error ?? "Something went wrong");
     }
   };
 
@@ -79,13 +79,13 @@ const Login = () => {
   //   if (credentials.userType === "employee")
   //     return <Navigate to="/employee/home" />;
   // }
-    if (userType === "admin") {
-      return <Navigate to="/admin/home" />;
-    }
+    // if (userType === "admin") {
+    //   return <Navigate to="/admin/home" />;
+    // }
 
-    if (userType === "employee") {
-      return <Navigate to="/employe/home" />;
-    }
+    // if (userType === "employee") {
+    //   return <Navigate to="/employe/home" />;
+    // }
     // return <Navigate to="/" />;
   }
 
@@ -102,15 +102,15 @@ const Login = () => {
         <div className="LoginCard">
           <div className="LoginTitle">
             <h4>Login</h4>
-            <p>EasyGo Audit support team is just a tap away!</p>
+            <p>LEARNING MANAGEMENT SYSTEM</p>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="LoginGroup">
               <label htmlFor="userType">User Type <RequieredStar>*</RequieredStar></label>
               <select name="userType" id="userType" onChange={handleRoleChange}>
                 <option value="">Please Select</option>
-                <option value="employee">Employee</option>
-                <option value="dealer">AMD</option>
+                <option value="employee">Admin</option>
+                <option value="dealer">User</option>
               </select>
               {errors.userType && <Error>{errors.userType}</Error>}
             </div>
@@ -146,6 +146,7 @@ const Login = () => {
                   <img
                     src={open ? hidePasswordIcon : seePasswordIcon}
                     alt="Toggle visibility"
+                    className="eye"
                   />
                 </button>
               </div>

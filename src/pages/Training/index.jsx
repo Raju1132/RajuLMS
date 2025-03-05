@@ -1,78 +1,85 @@
-import "./style.css";
-import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
-import CreateIcon from "@mui/icons-material/Create";
-import Card from "../../Components/card/Card";
-import * as React from "react";
-import { Modal, Box } from "@mui/material";
+import './style.css';
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
+import CreateIcon from '@mui/icons-material/Create';
+import Card from '../../Components/card/Card';
+import * as React from 'react';
+import { Modal, Box } from '@mui/material';
 
 function Training() {
   const [open, setOpen] = React.useState(false);
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState('');
   const [courseData, setCourseData] = React.useState([
     {
-      title: "Introduction to Programming",
+      title: 'Introduction to Programming',
       description:
         "A beginner's course in programming, focusing on the fundamentals of Python.",
-      fromDate: "15/01/2025",
-      toDate: "31/03/2025",
-      status: "Approved",
+      pdfFile: 'pdf.pdf',
+      fromDate: '15/01/2025',
+      toDate: '31/03/2025',
+      status: 'Approved',
     },
     {
-      title: "Advanced Web Development",
+      title: 'Advanced Web Development',
       description:
-        "Dive deeper into web development with HTML, CSS, JavaScript, and modern frameworks.",
-      fromDate: "01/02/2025",
-      toDate: "19/04/2025",
-      status: "In Process",
+        'Dive deeper into web development with HTML, CSS, JavaScript, and modern frameworks.',
+      pdfFile: 'web.pdf',
+      fromDate: '01/02/2025',
+      toDate: '19/04/2025',
+      status: 'In Process',
     },
     {
-      title: "Data Science and Machine Learning",
+      title: 'Data Science and Machine Learning',
       description:
-        "Learn data manipulation, machine learning algorithms, and data visualization techniques using Python.",
-      fromDate: "10/01/2025",
-      toDate: "16/03/2025",
-      status: "In Process",
+        'Learn data manipulation, machine learning algorithms, and data visualization techniques using Python.',
+      pdfFile: 'ML.pdf',
+      fromDate: '10/01/2025',
+      toDate: '16/03/2025',
+      status: 'In Process',
     },
     {
-      title: "Project Management Essentials",
+      title: 'Project Management Essentials',
       description:
-        "Understand the basics of project management, including planning, scheduling, and executing projects.",
-      fromDate: "25/02/2025",
-      toDate: "05/04/2025",
-      status: "Approved",
+        'Understand the basics of project management, including planning, scheduling, and executing projects.',
+      pdfFile: 'Management.pdf',
+      fromDate: '25/02/2025',
+      toDate: '05/04/2025',
+      status: 'Approved',
     },
     {
-      title: "Digital Marketing Strategy",
+      title: 'Digital Marketing Strategy',
       description:
-        "Master the essentials of digital marketing, SEO, content creation, and social media strategies.",
-      fromDate: "20/01/2025",
-      toDate: "25/03/2025",
-      status: "Rejected",
+        'Master the essentials of digital marketing, SEO, content creation, and social media strategies.',
+      pdfFile: 'Marketing.pdf',
+      fromDate: '20/01/2025',
+      toDate: '25/03/2025',
+      status: 'Rejected',
     },
   ]);
 
   const [newCourse, setNewCourse] = React.useState({
-    title: "",
-    description: "",
-    fromDate: "",
-    toDate: "",
-    dayLeft: "",
-    courseComplete: "0%",
-    status: "In Process",
+    title: '',
+    description: '',
+    pdfFile: '',
+    fromDate: '',
+    toDate: '',
+    dayLeft: '',
+    courseComplete: '0%',
+    status: 'In Process',
   });
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setNewCourse({
-      title: "",
-      description: "",
-      fromDate: "",
-      toDate: "",
-      dayLeft: "",
-      courseComplete: "0%",
-      status: "In Process",
+      title: '',
+      description: '',
+      pdfFile: '',
+      fromDate: '',
+      toDate: '',
+      dayLeft: '',
+      courseComplete: '0%',
+      status: 'In Process',
     });
   };
 
@@ -82,6 +89,30 @@ function Training() {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      console.log('Selected PDF:', file.name);
+      // Update newCourse state with the selected PDF file name
+      setNewCourse((prevCourse) => ({
+        ...prevCourse,
+        pdfFile: file.name,
+      }));
+    }
+  };
+
+  const handleUpdateCourse = (index, updatedData) => {
+    setCourseData((prevCourses) => {
+      const updatedCourses = [...prevCourses];
+      updatedCourses[index] = {
+        ...updatedCourses[index],
+        ...updatedData,
+        dayLeft: calculateDaysLeft(updatedData.fromDate, updatedData.toDate),
+      };
+      return updatedCourses;
+    });
   };
 
   const handleSubmit = (e) => {
@@ -94,10 +125,10 @@ function Training() {
     ) {
       const formatDate = (dateString) => {
         const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
+        return day/month/year;
       };
 
       setCourseData([
@@ -107,7 +138,7 @@ function Training() {
           fromDate: formatDate(newCourse.fromDate),
           toDate: formatDate(newCourse.toDate),
           dayLeft: calculateDaysLeft(newCourse.fromDate, newCourse.toDate),
-          courseComplete: "0%",
+          courseComplete: '0%',
         },
       ]);
       handleClose();
@@ -126,25 +157,20 @@ function Training() {
   };
 
   const filteredCourses = courseData.filter((course) =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    course.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const convertToInputDateFormat = (dateString) => {
-    if (!dateString) return "";
-    const [day, month, year] = dateString.split("/");
-    return `${year}-${month}-${day}`;
-  };
 
   const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    bgcolor: "background.paper",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
     boxShadow: 24,
-    borderRadius: "8px",
-    border: "none",
-    overflow: "auto",
+    borderRadius: '8px',
+    border: 'none',
+    overflow: 'auto',
   };
 
   return (
@@ -170,9 +196,13 @@ function Training() {
       <div className="navbar">Training</div>
       <div className="center">
         <div className="card_containers">
-          {filteredCourses.map((value, key) => {
-            return <Card value={value} key={key}  />;
-          })}
+          {filteredCourses.map((course, index) => (
+            <Card
+              key={index}
+              value={course}
+              onUpdate={(updatedData) => handleUpdateCourse(index, updatedData)}
+            />
+          ))}
         </div>
       </div>
 
@@ -212,6 +242,19 @@ function Training() {
                   placeholder="Enter training description"
                 />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="pdfFile">Upload PDF</label>
+                <input
+                  type="file"
+                  id="pdfFile"
+                  name="pdfFile"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                  className="pdf-input"
+                />
+              </div>
+
               <div className="flexbox">
                 <div className="flex_col">
                   <label htmlFor="fromDate">From Date: </label>
@@ -225,6 +268,7 @@ function Training() {
                     placeholder="DD/MM/YYYY"
                   />
                 </div>
+
                 <div className="flex_col">
                   <label htmlFor="toDate">To Date: </label>
                   <input
@@ -239,16 +283,18 @@ function Training() {
                 </div>
               </div>
               <div className="modal-buttons flexbox">
-                <button className="button submit-button" type="submit">
-                  Create
-                </button>
-                <button
+              <button
                   className="button cancel-button"
                   type="button"
                   onClick={handleClose}
                 >
                   Cancel
                 </button>
+                
+                <button className="button submit-button" type="submit">
+                  Create
+                </button>
+                
               </div>
             </form>
           </div>

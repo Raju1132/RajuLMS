@@ -26,6 +26,9 @@ import {
   Alert
 } from "@mui/material";
 import { styled } from "@mui/system";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SearchIcon from '@mui/icons-material/Search';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: "20px",
@@ -164,7 +167,7 @@ const RoleManagement = () => {
                 fullWidth
                 placeholder="Search roles..."
                 InputProps={{
-                  startAdornment: <span style={{ marginRight: 8 }} >search</span>
+                  startAdornment: <span style={{ marginRight: 8 }} ><SearchIcon/></span>
                 }}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -209,14 +212,14 @@ const RoleManagement = () => {
                           onClick={() => handleEdit(role)}
                           aria-label="edit"
                         >
-                         edit
+                         <EditIcon/>
                         </IconButton>
                         <IconButton
                           color="error"
                           onClick={() => handleDelete(role.id)}
                           aria-label="delete"
                         >
-                          Trash
+                          <DeleteIcon/>
                         </IconButton>
                       </TableCell>
                     </TableRow>

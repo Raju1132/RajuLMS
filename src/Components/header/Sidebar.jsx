@@ -20,16 +20,16 @@ import { Link, useLocation } from "react-router-dom";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import DescriptionIcon from '@mui/icons-material/Description';
+import DescriptionIcon from "@mui/icons-material/Description";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PreviewIcon from "@mui/icons-material/Preview";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import DvrIcon from "@mui/icons-material/Dvr";
-import SchoolIcon from '@mui/icons-material/School';
+import SchoolIcon from "@mui/icons-material/School";
 import SupportAgentOutlinedIcon from "@mui/icons-material/SupportAgentOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import RecentActorsIcon from '@mui/icons-material/RecentActors';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import {
   HeaderContain,
@@ -44,8 +44,7 @@ import Marquee from "react-fast-marquee";
 import { useNavigate } from "react-router-dom";
 import { Roles } from "../../utils/constants";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
-import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
-
+import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -74,7 +73,6 @@ const Sidebar = () => {
     }
   }, [drawerOpen, dispatch, matches]);
 
-
   let navLinks = [];
 
   {
@@ -97,12 +95,10 @@ const Sidebar = () => {
                 link: "/questionnaire",
                 icon: <DescriptionIcon />,
               },
-
             ],
           },
           {
-            label: 
-            "Manage User",
+            label: "Manage User",
             link: "#",
             icon: <ManageAccountsIcon />,
             sublinks: [
@@ -113,62 +109,53 @@ const Sidebar = () => {
               },
             ],
           },
-    
+
           { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
           { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
-          { label: "Support", link: "/support", icon: <SupportAgentOutlinedIcon /> },
+          {
+            label: "Support",
+            link: "/support",
+            icon: <SupportAgentOutlinedIcon />,
+          },
           { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
         ])
-      : (navLinks = [{ label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
+      : (navLinks = [
+          { label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
 
-        {
-          label: "Manage",
-          link: "#",
-          icon: <DvrIcon />,
-          sublinks: [
-            {
-              label: "Training",
-              link: "/training",
-              icon: <SchoolIcon />,
-            },
-            {
-              label: "Questionnaire",
-              link: "/questionnaire",
-              icon: <DescriptionIcon />,
-            },
+          {
+            label: "Manage",
+            link: "#",
+            icon: <DvrIcon />,
+            sublinks: [
+              {
+                label: "Training",
+                link: "/training",
+                icon: <SchoolIcon />,
+              },
+              {
+                label: "Questionnaire",
+                link: "/questionnaire",
+                icon: <DescriptionIcon />,
+              },
+            ],
+          },
 
-          ],
-        },
-        {
-          label: 
-          "Manage User",
-          link: "#",
-          icon: <ManageAccountsIcon />,
-          sublinks: [
-            {
-              label: "User Role",
-              link: "/userrole",
-              icon: <RecentActorsIcon />,
-            },
-          ],
-        },
-  
-        { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
-        { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
-        { label: "Support", link: "/support", icon: <SupportAgentOutlinedIcon /> },
-        { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
-      ]);
+          { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
+          { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
+          {
+            label: "Support",
+            link: "/support",
+            icon: <SupportAgentOutlinedIcon />,
+          },
+          { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
+        ]);
   }
- 
 
   const handleToggle = (label) => {
     setOpenDropdown((prev) => (prev === label ? null : label)); // Toggle open dropdown
   };
 
-
-
-  // Determine the header title based on the current route
-  const headerTitle =  "Learning Management System";
+  const headerTitle = "Learning Management System";
 
   const handleLinkClick = (event, link) => {
     event.preventDefault();
@@ -194,7 +181,6 @@ const Sidebar = () => {
           >
             <MenuIcon />
           </IconButton>
-          {/* <HeaderTitle variant="h6">EasyGo Audit</HeaderTitle> */}
           <HeaderTitle variant="h6">
             <Marquee gradient={false} speed={30}>
               {headerTitle}
@@ -202,7 +188,7 @@ const Sidebar = () => {
           </HeaderTitle>
           <button className="NotificationIcon">
             <NotificationsActiveIcon />
-            <span className="NotificationCount"> 102</span>
+            <span className="NotificationCount"> 10</span>
           </button>
         </Toolbar>
       </AppBar>
@@ -231,12 +217,11 @@ const Sidebar = () => {
             <IconButton sx={{ padding: "0" }}>
               <AccountCircle fontSize="large" />
             </IconButton>
-              
 
             {/* User's Name in the center */}
             <div className="user_name_text">
-              <span>{userData?.userName||"Manthan-It-Solution"}</span>
-              <span>{Roles[userData?.roleType]||"Admin"}</span>
+              <span>{userData?.userName || "Manthan-It-Solutions"}</span>
+              <span>{Roles[userData?.roleType] || "Admin"}</span>
               <span>{userData?.userId}</span>
             </div>
           </div>

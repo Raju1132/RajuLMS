@@ -106,3 +106,22 @@ img {
   background: rgb(255, 252, 93);
   color: black;
 }
+.mb10{
+  margin-bottom: 10px;
+}
+.close-icon{
+  cursor: pointer;
+}
+.decription{
+  width: 300px;
+}
+.flex_description{
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  margin-top: 10px;
+}
+.view_model{
+  text-align: right;
+  width: fit-content !important ;
+}
