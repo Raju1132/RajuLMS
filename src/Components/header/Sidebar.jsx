@@ -19,18 +19,15 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
 import DescriptionIcon from "@mui/icons-material/Description";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import PreviewIcon from "@mui/icons-material/Preview";
-import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import QueueIcon from '@mui/icons-material/Queue';
 import DvrIcon from "@mui/icons-material/Dvr";
 import SchoolIcon from "@mui/icons-material/School";
 import SupportAgentOutlinedIcon from "@mui/icons-material/SupportAgentOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AddCardIcon from "@mui/icons-material/AddCard";
 import {
   HeaderContain,
   HeaderTitle,
@@ -91,6 +88,11 @@ const Sidebar = () => {
                 icon: <SchoolIcon />,
               },
               {
+                label: "Training Material",
+                link: "/trainig-material",
+                icon: <QueueIcon />,
+              },
+              {
                 label: "Questionnaire",
                 link: "/questionnaire",
                 icon: <DescriptionIcon />,
@@ -132,6 +134,7 @@ const Sidebar = () => {
                 link: "/training",
                 icon: <SchoolIcon />,
               },
+              
               {
                 label: "Questionnaire",
                 link: "/questionnaire",

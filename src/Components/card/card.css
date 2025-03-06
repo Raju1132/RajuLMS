@@ -125,3 +125,21 @@ img {
   text-align: right;
   width: fit-content !important ;
 }
+
+/* CSS for styling the file input and other elements */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.file-input {
+  margin: 10px 0;
+}
+
+.file-name {
+  color: #777;
+}

@@ -243,18 +243,6 @@ function Training() {
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="pdfFile">Upload PDF</label>
-                <input
-                  type="file"
-                  id="pdfFile"
-                  name="pdfFile"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                  className="pdf-input"
-                />
-              </div>
-
               <div className="flexbox">
                 <div className="flex_col">
                   <label htmlFor="fromDate">From Date: </label>

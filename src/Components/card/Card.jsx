@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
-import './card.css';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import EditIcon from '@mui/icons-material/Edit';
-import CloseIcon from '@mui/icons-material/Close';
-import { Modal, Box, Typography, TextField, Button } from '@mui/material';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { useEffect, useState } from "react";
+import "./card.css";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import CloseIcon from "@mui/icons-material/Close";
+import { Modal, Box, Typography, Input , Button } from "@mui/material";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import UploadModulesModal from "./uploadmodel";
 
 function Card({ key, value, onUpdate }) {
   const [dayLeft, setDayLeft] = useState(0);
@@ -14,16 +15,18 @@ function Card({ key, value, onUpdate }) {
   const [editFormData, setEditFormData] = useState({
     title: value.title,
     description: value.description,
-    pdfFile:value.pdfFile,
+    pdfFile: value.pdfFile,
     fromDate: value.fromDate,
     toDate: value.toDate,
     status: value.status,
   });
 
+ 
+
   const calculateDaysLeft = (fromDate, toDate) => {
     const parseDate = (dateString) => {
-      const [day, month, year] = dateString.split('/');
-      return new Date(year,month,day);
+      const [day, month, year] = dateString.split("/");
+      return new Date(year, month, day);
     };
 
     const startDate = parseDate(fromDate);
@@ -62,55 +65,43 @@ function Card({ key, value, onUpdate }) {
     }
     handleEditClose();
   };
-  
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      console.log("Selected PDF:", file.name);
-      // Update editFormData with the new PDF file name
-      setEditFormData((prevData) => ({
-        ...prevData,
-        pdfFile: file.name,
-      }));
-    }
-  };
-  
+
+
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
-      case 'approved':
-        return '#4CAF50';
-      case 'in process':
-        return '#2196F3';
-      case 'rejected':
-        return '#F44336';
+      case "approved":
+        return "#4CAF50";
+      case "in process":
+        return "#2196F3";
+      case "rejected":
+        return "#F44336";
       default:
-        return '#9E9E9E';
+        return "#9E9E9E";
     }
   };
 
   const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
     boxShadow: 24,
-    borderRadius: '8px',
+    borderRadius: "8px",
     p: 4,
-    width: '80%',
-    maxWidth: '500px',
-    maxHeight: '90vh',
-    overflow: 'auto',
+    width: "80%",
+    maxWidth: "500px",
+    maxHeight: "90vh",
+    overflow: "auto",
   };
 
   const pdfModalStyle = {
     ...modalStyle,
-    width: '90%',
-    maxWidth: '600px',
-    height: '90vh',
+    width: "90%",
+    maxWidth: "600px",
+    height: "90vh",
   };
-
 
   return (
     <div className="card" key={key}>
@@ -119,9 +110,6 @@ function Card({ key, value, onUpdate }) {
           <div className="title">{value.title}</div>
           <div className="description">
             <ReadMore>{value.description}</ReadMore>
-          </div>
-          <div>
-            {value.pdfFile}
           </div>
         </div>
       </div>
@@ -156,7 +144,7 @@ function Card({ key, value, onUpdate }) {
         aria-labelledby="view-modal-title"
         aria-describedby="view-modal-description"
       >
-        <Box sx={modalStyle} className="view_model">
+        <Box sx={modalStyle} className="">
           <div className="modal-header flex_between mb10">
             <Typography id="view-modal-title" variant="h6" component="h2">
               Training Details
@@ -176,20 +164,24 @@ function Card({ key, value, onUpdate }) {
               <Typography variant="subtitle1" className="detail-label">
                 Description:
               </Typography>
-              <Typography variant="body1 " className='decription' >{value.description}</Typography>
+              <Typography variant="body1 " className="decription">
+                {value.description}
+              </Typography>
             </div>
 
             <div className="detail-row flex_between mb10">
               <Typography variant="subtitle1" className="detail-label">
                 Pdf:
               </Typography>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
                 <Typography variant="body1">{value.pdfFile}</Typography>
                 {value.pdfFile && (
-                  <PictureAsPdfIcon 
-                    color="error" 
-                    onClick={handlePdfOpen} 
-                    style={{ cursor: 'pointer' }} 
+                  <PictureAsPdfIcon
+                    color="error"
+                    onClick={handlePdfOpen}
+                    style={{ cursor: "pointer" }}
                   />
                 )}
               </div>
@@ -235,7 +227,6 @@ function Card({ key, value, onUpdate }) {
         open={pdfModalOpen}
         onClose={handlePdfClose}
         aria-labelledby="pdf-modal-title"
-
       >
         <Box sx={pdfModalStyle}>
           <div className="modal-header flex_between mb10">
@@ -244,149 +235,28 @@ function Card({ key, value, onUpdate }) {
             </Typography>
             <CloseIcon onClick={handlePdfClose} className="close-icon" />
           </div>
-          
-          <div style={{ 
-            width: '100%', 
-            height: 'calc(90vh - 100px)', 
-            border: '1px solid #ddd' 
-          }}>
+
+          <div
+            style={{
+              width: "100%",
+              height: "calc(90vh - 100px)",
+              border: "1px solid #ddd",
+            }}
+          >
             <iframe
               src={`/${value.pdfFile}`}
               width="100%"
               height="100%"
               title="PDF Viewer"
-              style={{ border: 'none' }}
+              style={{ border: "none" }}
             />
           </div>
         </Box>
       </Modal>
 
-
       {/* Edit Modal */}
-      <Modal
-        open={editModalOpen}
-        onClose={handleEditClose}
-        aria-labelledby="edit-modal-title"
-        aria-describedby="edit-modal-description"
-      >
-        <Box sx={modalStyle}>
-          <div className="modal-header flex_between mb10">
-            <Typography id="edit-modal-title" variant="h6" component="h2">
-              Edit Training
-            </Typography>
-            <CloseIcon onClick={handleEditClose} className="close-icon" />
-          </div>
+      <UploadModulesModal open={editModalOpen} handleClose={handleEditClose} />
 
-          <form onSubmit={handleEditSubmit} className="edit-form">
-            <div className="form-group  mb10">
-              <label htmlFor="title">Title</label>
-              <TextField
-                fullWidth
-                id="title"
-                name="title"
-                value={editFormData.title}
-                onChange={handleInputChange}
-                required
-                variant="outlined"
-                size="small"
-              />
-            </div>
-
-            <div className="form-group mb10">
-              <label htmlFor="description">Description</label>
-              <TextField
-                fullWidth
-                id="description"
-                name="description"
-                value={editFormData.description}
-                onChange={handleInputChange}
-                required
-                variant="outlined"
-                multiline
-                rows={4}
-              />
-            </div>
-            
-            <div className="form-group mb10">
-              <label htmlFor="pdfFile">Upload PDF </label>
-              <input
-                type="file"
-                id="pdfFile"
-                name="pdfFile"
-                accept="application/pdf"
-                onChange={handleFileChange}
-                className="pdf-input"
-              />
-            </div>
-
-            <div className="form-row mb10">
-              <div className="form-group half mb10">
-                <label htmlFor="fromDate">Start Date (DD/MM/YYYY)</label>
-                <TextField
-                  fullWidth
-                  id="fromDate"
-                  name="fromDate"
-                  value={editFormData.fromDate}
-                  onChange={handleInputChange}
-                  required
-                  variant="outlined"
-                  placeholder="DD/MM/YYYY"
-                  size="small"
-                />
-              </div>
-
-              <div className="form-group half mb10">
-                <label htmlFor="toDate">End Date (DD/MM/YYYY)</label>
-                <TextField
-                  fullWidth
-                  id="toDate"
-                  name="toDate"
-                  value={editFormData.toDate}
-                  onChange={handleInputChange}
-                  required
-                  variant="outlined"
-                  placeholder="DD/MM/YYYY"
-                  size="small"
-                />
-              </div>
-            </div>
-
-            <div className="form-group mb10">
-              <label htmlFor="status">Status </label>
-              <select
-                id="status"
-                name="status"
-                value={editFormData.status}
-                onChange={handleInputChange}
-                className="status-select"
-              >
-                <option value="Approved">Approved</option>
-                <option value="In Process">In Process</option>
-                <option value="Rejected">Rejected</option>
-              </select>
-            </div>
-
-            <div className="form-actions flex_between">
-            <Button variant="outlined" onClick={handleEditClose}>
-                Cancel
-              </Button>
-              
-              <Button
-                variant="contained"
-                type="submit"
-                sx={{
-                  bgcolor: '#ff4500',
-                  '&:hover': { bgcolor: '#ff4500dd' },
-                  mr: 2,
-                }}
-              >
-                Save Changes
-              </Button>
-              
-            </div>
-          </form>
-        </Box>
-      </Modal>
     </div>
   );
 }
@@ -403,9 +273,9 @@ const ReadMore = ({ children }) => {
       <span
         onClick={toggleReadMore}
         className="read-or-hide"
-        style={{ color: '#ff4500', cursor: 'pointer' }}
+        style={{ color: "#ff4500", cursor: "pointer" }}
       >
-        {isReadMore ? '...read more' : ' show less'}
+        {isReadMore ? "...read more" : " show less"}
       </span>
     </p>
   );

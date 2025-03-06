@@ -21,12 +21,10 @@ export function Loader({ fullScreen = false }) {
           backgroundColor: '#ffffffbf',
         }}>
           <CircularProgress color="inherit" size={25} />
-          {/* You can add other content for fullScreen here */}
         </Box>
       ) : (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress color="inherit" size={25} />
-          {/* You can add other content for non-fullScreen here */}
         </Box>
       )}
     </>
