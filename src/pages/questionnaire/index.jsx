@@ -14,15 +14,12 @@ import {
   useMediaQuery,
   AppBar,
   Toolbar,
-  Drawer,
-  Button,
   createTheme,
   ThemeProvider
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SearchIcon from '@mui/icons-material/Search';
 import SendIcon from '@mui/icons-material/Send';
-import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const theme = createTheme({

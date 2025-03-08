@@ -59,6 +59,8 @@ function Support() {
       return;
     }
 
+   function  supportRequest(payload){}
+   
     try {
       setLoading(true);
       setErrorMessage("");

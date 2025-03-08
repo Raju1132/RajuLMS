@@ -277,7 +277,7 @@ function TrainingCard({ value }) {
                     className="module-header"
                   >
                     <Typography>
-                      <span className="week-label">Week {module.week}:</span>
+                      <span className="week-label">Module {module.week}:</span>
                       {module.topic}
                     </Typography>
                   </AccordionSummary>
@@ -372,7 +372,7 @@ function TrainingCard({ value }) {
           </DialogContentText>
           <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
             <TextField
-              label="Week Number"
+              label="Module Number"
               name="week"
               type="number"
               value={newModule.week}
@@ -423,7 +423,7 @@ function TrainingCard({ value }) {
           </DialogContentText>
           <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
             <TextField
-              label="Week Number"
+              label="Module Number"
               name="week"
               type="number"
               value={editedModule.week}
