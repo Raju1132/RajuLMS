@@ -1,11 +1,11 @@
-.container{
+.training_container{
     position: relative;
     display: flex ;
     flex-direction: column;
     gap:10px;
     padding: 20px 10px;
 }
-.container .topbar{
+.training_container .training_topbar{
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -27,16 +27,16 @@
     opacity: 0.7;
     scale: 1.01;
 }
-.input{
+.training_input{
     display:flex ;
     justify-content: center;
     align-items: center;
 }
-.input span{
+.training_input span{
     cursor: pointer;
    transform: translate(-130%,10%);
 }
-.input input{
+.training_input input{
     padding: 5px;
     border-radius: 3px;
     border: 1px solid #999;
@@ -47,7 +47,7 @@
     color: white;
     padding: 10px;
 }
-.card_containers{
+.training_card_containers{
    display: grid;
    grid-gap:20px;
    padding: 10px;
@@ -93,13 +93,13 @@
     resize: none;
 }
 @media (max-width: 1024px) {
-    .card_containers {
+    .training_card_containers {
       grid-template-columns: repeat(2, 1fr); 
     }
 }
 
 @media screen and (max-width: 768px) {
-    .card_containers {
+    .training_card_containers {
         grid-template-columns: repeat(1, 1fr);
     }
     .form form{

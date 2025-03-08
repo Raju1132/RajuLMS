@@ -6,6 +6,7 @@ import Questionnaire from "./pages/questionnaire";
 import Analytics from "./pages/analytics";
 import Result from "./pages/result";
 import UserRole from "./pages/userrole";
+import TrainingMatirial from "./pages/trainingMatirial"
 
 const routes = [
   { path: "/", element: <Login /> },
@@ -16,6 +17,7 @@ const routes = [
   { path: "/analytics", element: <Analytics /> },
   { path: "/result", element: <Result /> },
   { path:"/userrole", element: <UserRole/>},
+  {path:"/trainig-material" , element:<TrainingMatirial/>}
 ];
 
 export default routes;

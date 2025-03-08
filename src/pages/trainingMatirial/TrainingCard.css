@@ -1,0 +1,37 @@
+.training-card {
+    width: 100%;
+    margin: 20px auto;
+  }
+  
+  .card-title {
+    color: #ff4500;
+    margin-bottom: 20px !important;
+    font-weight: 600 !important;
+  }
+  
+  .modules-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .module-accordion {
+    border-radius: 8px !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  .module-header {
+    background-color: #f5f7fa;
+  }
+  
+  .week-label {
+    color: #ff4500;
+    font-weight: 500;
+    margin-right: 8px;
+  }
+  
+  .module-details {
+    padding: 16px;
+    background-color: #fafafa;
+    border-top: 1px solid #eee;
+  }

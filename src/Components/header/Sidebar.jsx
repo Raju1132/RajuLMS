@@ -16,10 +16,9 @@ import {
   AccountCircle,
   Close,
 } from "@mui/icons-material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-
 import DescriptionIcon from "@mui/icons-material/Description";
 import QueueIcon from '@mui/icons-material/Queue';
 import DvrIcon from "@mui/icons-material/Dvr";
@@ -37,8 +36,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useMatches } from "../../style/theme";
 import { setDrawer } from "../../features/DrawerSlice";
+import { setRole } from "../../features/RoleSlice";
 import Marquee from "react-fast-marquee";
-import { useNavigate } from "react-router-dom";
 import { Roles } from "../../utils/constants";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
@@ -50,120 +49,124 @@ const Sidebar = () => {
   const location = useLocation();
   const [userData, setUserData] = useState(null);
   const drawer = useSelector((state) => state.drawer);
+  const currentRole = useSelector((state) => state.role);
+  
+  // Effect to handle responsive drawer
   useEffect(() => {
     if (matches) {
-      setDrawerOpen(false); // Close the drawer only when matches is true
+      setDrawerOpen(false);
     }
   }, [location, matches]);
+  
   useEffect(() => {
-    setDrawerOpen(!matches); // Update drawer state when matches changes
+    setDrawerOpen(!matches);
   }, [matches]);
-  const [drawerOpen, setDrawerOpen] = useState(() => !matches); // To manage the visibility of the sidebar
-  const [openDropdown, setOpenDropdown] = useState(null); // To track the currently open dropdown
-  const RoleType = useSelector((state) => state.role); // Get the value from Redux state
+  
+  const [drawerOpen, setDrawerOpen] = useState(() => !matches);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
+  // Effect to synchronize drawer state with Redux
   useEffect(() => {
     if (matches) {
-      dispatch(setDrawer(true)); // Set drawer open/closed based on matches
+      dispatch(setDrawer(true));
     } else {
       dispatch(setDrawer(!drawerOpen));
     }
   }, [drawerOpen, dispatch, matches]);
 
-  let navLinks = [];
+  // Navigation links based on role
+  const adminNavLinks = [
+    { label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
+    {
+      label: "Manage",
+      link: "#",
+      icon: <DvrIcon />,
+      sublinks: [
+        {
+          label: "Training",
+          link: "/training",
+          icon: <SchoolIcon />,
+        },
+        {
+          label: "Training Material",
+          link: "/trainig-material",
+          icon: <QueueIcon />,
+        },
+        {
+          label: "Questionnaire",
+          link: "/questionnaire",
+          icon: <DescriptionIcon />,
+        },
+      ],
+    },
+    {
+      label: "Manage User",
+      link: "#",
+      icon: <ManageAccountsIcon />,
+      sublinks: [
+        {
+          label: "User Role",
+          link: "/userrole",
+          icon: <RecentActorsIcon />,
+        },
+      ],
+    },
+    { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
+    { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
+    {
+      label: "Support",
+      link: "/support",
+      icon: <SupportAgentOutlinedIcon />,
+    },
+    { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
+  ];
 
-  {
-    RoleType === "Admin"
-      ? (navLinks = [
-          { label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
+  const userNavLinks = [
+    { label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
+    {
+      label: "Manage",
+      link: "#",
+      icon: <DvrIcon />,
+      sublinks: [
+        {
+          label: "Training",
+          link: "/training",
+          icon: <SchoolIcon />,
+        },
+        {
+          label: "Questionnaire",
+          link: "/questionnaire",
+          icon: <DescriptionIcon />,
+        },
+      ],
+    },
+    { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
+    { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
+    {
+      label: "Support",
+      link: "/support",
+      icon: <SupportAgentOutlinedIcon />,
+    },
+    { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
+  ];
 
-          {
-            label: "Manage",
-            link: "#",
-            icon: <DvrIcon />,
-            sublinks: [
-              {
-                label: "Training",
-                link: "/training",
-                icon: <SchoolIcon />,
-              },
-              {
-                label: "Training Material",
-                link: "/trainig-material",
-                icon: <QueueIcon />,
-              },
-              {
-                label: "Questionnaire",
-                link: "/questionnaire",
-                icon: <DescriptionIcon />,
-              },
-            ],
-          },
-          {
-            label: "Manage User",
-            link: "#",
-            icon: <ManageAccountsIcon />,
-            sublinks: [
-              {
-                label: "User Role",
-                link: "/userrole",
-                icon: <RecentActorsIcon />,
-              },
-            ],
-          },
-
-          { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
-          { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
-          {
-            label: "Support",
-            link: "/support",
-            icon: <SupportAgentOutlinedIcon />,
-          },
-          { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
-        ])
-      : (navLinks = [
-          { label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
-
-          {
-            label: "Manage",
-            link: "#",
-            icon: <DvrIcon />,
-            sublinks: [
-              {
-                label: "Training",
-                link: "/training",
-                icon: <SchoolIcon />,
-              },
-              
-              {
-                label: "Questionnaire",
-                link: "/questionnaire",
-                icon: <DescriptionIcon />,
-              },
-            ],
-          },
-
-          { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
-          { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
-          {
-            label: "Support",
-            link: "/support",
-            icon: <SupportAgentOutlinedIcon />,
-          },
-          { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
-        ]);
-  }
+  // Select nav links based on current role
+  const navLinks = currentRole === Roles.Admin ? adminNavLinks : userNavLinks;
 
   const handleToggle = (label) => {
-    setOpenDropdown((prev) => (prev === label ? null : label)); // Toggle open dropdown
+    setOpenDropdown((prev) => (prev === label ? null : label));
   };
 
   const headerTitle = "Learning Management System";
 
   const handleLinkClick = (event, link) => {
-    event.preventDefault();
-    localStorage.clear();
-    navigate("/");
+    if (link.label === "Log Out") {
+      event.preventDefault();
+      // Reset role to default on logout
+      dispatch(setRole(Roles.Admin));
+      localStorage.clear();
+      navigate("/");
+    }
   };
 
   return (
@@ -209,8 +212,7 @@ const Sidebar = () => {
         }}
         variant="persistent"
         anchor="left"
-        open={drawerOpen} // Controls visibility based on state
-        // onClose={toggleDrawer}
+        open={drawerOpen}
         ModalProps={{
           disableBackdropClick: true,
         }}
@@ -221,10 +223,9 @@ const Sidebar = () => {
               <AccountCircle fontSize="large" />
             </IconButton>
 
-            {/* User's Name in the center */}
             <div className="user_name_text">
               <span>{userData?.userName || "Manthan-It-Solutions"}</span>
-              <span>{Roles[userData?.roleType] || "Admin"}</span>
+              <span>{currentRole}</span>
               <span>{userData?.userId}</span>
             </div>
           </div>
@@ -242,27 +243,15 @@ const Sidebar = () => {
                 {/* Render top-level item */}
                 {!link.sublinks ? (
                   <ListItem className="Border_top">
-                    {link.label === "Log Out" ? (
-                      <Link
-                        to={link.link}
-                        onClick={(e) => handleLinkClick(e, link)}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        className="LinkSideBar"
-                      >
-                        {link.icon}
-                        <ListItemText primary={link.label} />
-                      </Link>
-                    ) : (
-                      <Link
-                        to={link.link}
-                        onClick={link?.action}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        className="LinkSideBar"
-                      >
-                        {link.icon}
-                        <ListItemText primary={link.label} />
-                      </Link>
-                    )}
+                    <Link
+                      to={link.link}
+                      onClick={(e) => handleLinkClick(e, link)}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      className="LinkSideBar"
+                    >
+                      {link.icon}
+                      <ListItemText primary={link.label} />
+                    </Link>
                   </ListItem>
                 ) : (
                   <>
@@ -280,7 +269,7 @@ const Sidebar = () => {
                         ) : (
                           <ExpandMore />
                         )}
-                      </IconButton>
+                        </IconButton>
                     </ListItem>
 
                     {/* Render sublinks */}

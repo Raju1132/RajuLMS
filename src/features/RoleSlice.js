@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Roles } from '../utils/constants';
 
-
-const roles = {
-  ADMIN: 'Admin',
-  USER: 'User',
-};
-
+// Using the Roles object from constants.js
 const roleSlice = createSlice({
-  name: 'Role', 
-  initialState: roles.ADMIN, 
+  name: 'role', 
+  initialState: Roles.Admin, // Default to Admin role
   reducers: {
-    setRole: (state, action) => action.payload,
+    setRole: (state, action) => {
+      // Validate that the received role is valid
+      if (Object.values(Roles).includes(action.payload)) {
+        return action.payload;
+      }
+      // If invalid role is provided, keep current state
+      return state;
+    },
   },
 });
 

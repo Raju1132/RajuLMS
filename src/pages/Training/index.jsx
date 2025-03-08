@@ -1,4 +1,4 @@
-import './style.css';
+import './Trainingstyle.css';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
@@ -95,7 +95,6 @@ function Training() {
     const file = event.target.files[0];
     if (file) {
       console.log('Selected PDF:', file.name);
-      // Update newCourse state with the selected PDF file name
       setNewCourse((prevCourse) => ({
         ...prevCourse,
         pdfFile: file.name,
@@ -174,9 +173,9 @@ function Training() {
   };
 
   return (
-    <div className="container">
-      <div className="topbar">
-        <div className="input">
+    <div className="training_container">
+      <div className="training_topbar">
+        <div className="training_input">
           <input
             type="text"
             placeholder="Search Training"
@@ -195,7 +194,7 @@ function Training() {
 
       <div className="navbar">Training</div>
       <div className="center">
-        <div className="card_containers">
+        <div className="training_card_containers">
           {filteredCourses.map((course, index) => (
             <Card
               key={index}
