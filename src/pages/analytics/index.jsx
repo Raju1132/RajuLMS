@@ -303,7 +303,7 @@ function Analytics() {
                 { key: 'fromDate', label: 'Start Date' },
                 { key: 'afterDate', label: 'End Date' },
                 { key: 'dayLeft', label: 'Days Left' },
-                { key: 'courseComplete', label: 'Completion' },
+                { key: 'courseComplete', label: 'Average Completion' },
                 { key: 'numberOfStudent', label: 'Students' },
                 { key: 'revenue', label: 'Revenue' },
                 { key: 'rating', label: 'Rating' }

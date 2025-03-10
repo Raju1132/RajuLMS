@@ -4,9 +4,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import ViewModulesModel from "./viewmodel";
 import EditModel from './editmodel';
-import UploadModulesModel from "./uploadmodel";
 
-function Card({ key, value, onUpdate }) {
+function Card({ value, onUpdate }) {
   const [dayLeft, setDayLeft] = useState(0);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -49,7 +48,7 @@ function Card({ key, value, onUpdate }) {
   };
 
   return (
-    <div className="card" key={key}>
+    <div className="card">
       <div className="padding">
         <div className="title">{value.title}</div>
         <div className="description">

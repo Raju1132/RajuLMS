@@ -6,14 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/index'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import routes from './routes';
 
-const router = createBrowserRouter(routes, {
-  future: {
-    v7_startTransition: true,
-  },
-});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

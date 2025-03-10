@@ -450,7 +450,6 @@ function TrainingCard({ value }) {
               fullWidth
               required
             />
-           
           </Box>
         </DialogContent>
         <DialogActions>

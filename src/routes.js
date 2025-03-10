@@ -17,7 +17,7 @@ const routes = [
   { path: "/analytics", element: <Analytics /> },
   { path: "/result", element: <Result /> },
   { path:"/userrole", element: <UserRole/>},
-  {path:"/trainig-material" , element:<TrainingMatirial/>}
+  {path:"/trainig-material" , element:<TrainingMatirial/>},
 ];
 
 export default routes;

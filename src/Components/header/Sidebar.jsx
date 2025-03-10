@@ -20,7 +20,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionIcon from "@mui/icons-material/Description";
-import QueueIcon from '@mui/icons-material/Queue';
+import QueueIcon from "@mui/icons-material/Queue";
 import DvrIcon from "@mui/icons-material/Dvr";
 import SchoolIcon from "@mui/icons-material/School";
 import SupportAgentOutlinedIcon from "@mui/icons-material/SupportAgentOutlined";
@@ -41,6 +41,8 @@ import Marquee from "react-fast-marquee";
 import { Roles } from "../../utils/constants";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
+import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from '@mui/icons-material/Home';
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -50,18 +52,18 @@ const Sidebar = () => {
   const [userData, setUserData] = useState(null);
   const drawer = useSelector((state) => state.drawer);
   const currentRole = useSelector((state) => state.role);
-  
+
   // Effect to handle responsive drawer
   useEffect(() => {
     if (matches) {
       setDrawerOpen(false);
     }
   }, [location, matches]);
-  
+
   useEffect(() => {
     setDrawerOpen(!matches);
   }, [matches]);
-  
+
   const [drawerOpen, setDrawerOpen] = useState(() => !matches);
   const [openDropdown, setOpenDropdown] = useState(null);
 
@@ -122,24 +124,7 @@ const Sidebar = () => {
   ];
 
   const userNavLinks = [
-    { label: "Dashboard", link: "/home", icon: <DashboardIcon /> },
-    {
-      label: "Manage",
-      link: "#",
-      icon: <DvrIcon />,
-      sublinks: [
-        {
-          label: "Training",
-          link: "/training",
-          icon: <SchoolIcon />,
-        },
-        {
-          label: "Questionnaire",
-          link: "/questionnaire",
-          icon: <DescriptionIcon />,
-        },
-      ],
-    },
+    { label: "Dashboard", link: "/student-dashboard", icon: <DashboardIcon /> },
     { label: "Results", link: "/result", icon: <ChecklistRtlIcon /> },
     { label: "Analytics", link: "/analytics", icon: <AnalyticsIcon /> },
     {
@@ -147,6 +132,7 @@ const Sidebar = () => {
       link: "/support",
       icon: <SupportAgentOutlinedIcon />,
     },
+    { label: "User Profile", link: "/profile", icon: <PersonIcon /> },
     { label: "Log Out", link: "/", icon: <LogoutOutlinedIcon /> },
   ];
 
@@ -269,7 +255,7 @@ const Sidebar = () => {
                         ) : (
                           <ExpandMore />
                         )}
-                        </IconButton>
+                      </IconButton>
                     </ListItem>
 
                     {/* Render sublinks */}

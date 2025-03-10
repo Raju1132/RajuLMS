@@ -37,10 +37,7 @@ function Support() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const generateTicketId = () => {
-    return Math.floor(10000 + Math.random() * 90000);
-  };
-
+ 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;

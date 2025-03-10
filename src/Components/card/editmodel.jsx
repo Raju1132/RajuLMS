@@ -105,9 +105,7 @@ function EditModel({ value, onUpdate, editModalOpen, handleEditClose }) {
                 placeholder="DD/MM/YYYY"
                 size="small"
               />
-           
               <TextField
-                
                 id="toDate"
                 name="toDate"
                 value={editFormData.toDate}
